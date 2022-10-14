@@ -2,6 +2,7 @@ package com.araliya.pos.araliyapos.controller;
 
 import com.araliya.pos.araliyapos.dto.CustomerDTO;
 import com.araliya.pos.araliyapos.dto.request.CustomerSaveRequestDTO;
+import com.araliya.pos.araliyapos.dto.request.CustomerUpdateRequestDTO;
 import com.araliya.pos.araliyapos.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,5 +19,11 @@ public class CustomerController {
     public String saveCustomer(@RequestBody CustomerSaveRequestDTO customerSaveRequestDTO){
         String id = customerService.addCustomer(customerSaveRequestDTO);
         return id;
+    }
+
+    @PutMapping(path = "/update")
+    public String updateCustomer(@RequestBody CustomerUpdateRequestDTO customerUpdateRequestDTO){
+        String updated= customerService.updateCustomerDetails(customerUpdateRequestDTO);
+        return null;
     }
 }
