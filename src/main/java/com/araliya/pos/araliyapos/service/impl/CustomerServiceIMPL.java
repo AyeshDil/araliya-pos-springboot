@@ -1,6 +1,7 @@
 package com.araliya.pos.araliyapos.service.impl;
 
 import com.araliya.pos.araliyapos.dto.CustomerDTO;
+import com.araliya.pos.araliyapos.dto.request.CustomerSaveRequestDTO;
 import com.araliya.pos.araliyapos.entity.Customer;
 import com.araliya.pos.araliyapos.repository.CustomerRepo;
 import com.araliya.pos.araliyapos.service.CustomerService;
@@ -15,14 +16,13 @@ public class CustomerServiceIMPL implements CustomerService {
     private CustomerRepo customerRepo;
 
     @Override
-    public String addCustomer(CustomerDTO customerDTO) {
+    public String addCustomer(CustomerSaveRequestDTO customerSaveRequestDTO) {
         Customer customer = new Customer(
-                customerDTO.getCustomerId(),
-                customerDTO.getCustomerName(),
-                customerDTO.getCustomerAddress(),
-                customerDTO.getSalary(),
-                customerDTO.getContactNumbers(),
-                customerDTO.isActiveState()
+                customerSaveRequestDTO.getCustomerName(),
+                customerSaveRequestDTO.getCustomerAddress(),
+                customerSaveRequestDTO.getSalary(),
+                customerSaveRequestDTO.getContactNumbers(),
+                true
         );
 
         customerRepo.save(customer);
