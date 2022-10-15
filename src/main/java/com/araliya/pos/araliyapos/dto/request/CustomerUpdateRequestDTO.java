@@ -1,7 +1,14 @@
 package com.araliya.pos.araliyapos.dto.request;
 
+import lombok.*;
+
 import java.util.ArrayList;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class CustomerUpdateRequestDTO {
     private int customerId;
     private String customerName;
@@ -9,7 +16,7 @@ public class CustomerUpdateRequestDTO {
     private double salary;
     private ArrayList contactNumbers;
     private boolean activeState;
-
+/*
     public CustomerUpdateRequestDTO() {
     }
 
@@ -80,5 +87,5 @@ public class CustomerUpdateRequestDTO {
                 ", contactNumbers=" + contactNumbers +
                 ", activeState=" + activeState +
                 '}';
-    }
+    }*/
 }
