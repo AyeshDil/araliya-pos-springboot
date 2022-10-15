@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CustomerServiceIMPL implements CustomerService {
 
@@ -28,12 +32,12 @@ public class CustomerServiceIMPL implements CustomerService {
 
         customerRepo.save(customer);
 
-        return customer.getCustomerName()+ " saved";
+        return customer.getCustomerName() + " saved";
     }
 
     @Override
     public String updateCustomerDetails(CustomerUpdateRequestDTO customerUpdateRequestDTO) {
-        if (customerRepo.existsById(customerUpdateRequestDTO.getCustomerId())){
+        if (customerRepo.existsById(customerUpdateRequestDTO.getCustomerId())) {
             Customer customer = customerRepo.getById(customerUpdateRequestDTO.getCustomerId());
             customer.setCustomerName(customerUpdateRequestDTO.getCustomerName());
             customer.setCustomerAddress(customerUpdateRequestDTO.getCustomerAddress());
@@ -42,10 +46,49 @@ public class CustomerServiceIMPL implements CustomerService {
             customer.setActiveState(customerUpdateRequestDTO.isActiveState());
 
             customerRepo.save(customer);
-            return customer.getCustomerName()+ " updated";
-        }else {
+            return customer.getCustomerName() + " updated";
+        } else {
             return "This customer not in the database";
         }
 
+    }
+
+    @Override
+    public CustomerDTO getCustomerById(int customerID) {
+        Optional<Customer> customer = customerRepo.findById(customerID);
+        if (customer.isPresent()) {
+            CustomerDTO customerDTO = new CustomerDTO(
+                    customer.get().getCustomerId(),
+                    customer.get().getCustomerName(),
+                    customer.get().getCustomerAddress(),
+                    customer.get().getSalary(),
+                    customer.get().getContactNumbers(),
+                    customer.get().isActiveState()
+            );
+
+            return customerDTO;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<CustomerDTO> getAllCustomers() {
+        List<Customer> customerList = customerRepo.findAll();
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+
+        for (Customer c: customerList){
+            CustomerDTO customerDTO= new CustomerDTO(
+                    c.getCustomerId(),
+                    c.getCustomerName(),
+                    c.getCustomerAddress(),
+                    c.getSalary(),
+                    c.getContactNumbers(),
+                    c.isActiveState()
+            );
+            customerDTOList.add(customerDTO);
+        }
+
+        return customerDTOList;
     }
 }

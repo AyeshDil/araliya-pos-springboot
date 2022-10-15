@@ -6,6 +6,9 @@ import com.araliya.pos.araliyapos.dto.request.CustomerUpdateRequestDTO;
 import com.araliya.pos.araliyapos.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -25,5 +28,20 @@ public class CustomerController {
     public String updateCustomer(@RequestBody CustomerUpdateRequestDTO customerUpdateRequestDTO){
         String updated= customerService.updateCustomerDetails(customerUpdateRequestDTO);
         return null;
+    }
+
+    @GetMapping(
+            path = {"/get-by-id"},
+            params = {"id"}
+    )
+    public CustomerDTO getCustomerById(@RequestParam(value = "id") int customerID){
+        CustomerDTO customerDTO = customerService.getCustomerById(customerID);
+        return customerDTO;
+    }
+
+    @GetMapping(path = {"/get-all-customer"})
+    public List<CustomerDTO> getAllCustomer(){
+        List<CustomerDTO> customerDTOList = customerService.getAllCustomers();
+        return customerDTOList;
     }
 }

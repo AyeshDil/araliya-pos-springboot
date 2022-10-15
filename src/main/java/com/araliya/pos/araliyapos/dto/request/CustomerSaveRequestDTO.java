@@ -7,17 +7,16 @@ public class CustomerSaveRequestDTO {
     private String customerAddress;
     private double salary;
     private ArrayList contactNumbers;
-    private boolean activeState;
 
     public CustomerSaveRequestDTO() {
     }
 
-    public CustomerSaveRequestDTO(String customerName, String customerAddress, double salary, ArrayList contactNumbers, boolean activeState) {
+    public CustomerSaveRequestDTO(String customerName, String customerAddress, double salary, ArrayList contactNumbers) {
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.salary = salary;
         this.contactNumbers = contactNumbers;
-        this.activeState = activeState;
+
     }
 
 
@@ -53,13 +52,6 @@ public class CustomerSaveRequestDTO {
         this.contactNumbers = contactNumbers;
     }
 
-    public boolean isActiveState() {
-        return activeState;
-    }
-
-    public void setActiveState(boolean activeState) {
-        this.activeState = activeState;
-    }
 
     @Override
     public String toString() {
@@ -68,7 +60,6 @@ public class CustomerSaveRequestDTO {
                 ", customerAddress='" + customerAddress + '\'' +
                 ", salary=" + salary +
                 ", contactNumbers=" + contactNumbers +
-                ", activeState=" + activeState +
                 '}';
     }
 }
