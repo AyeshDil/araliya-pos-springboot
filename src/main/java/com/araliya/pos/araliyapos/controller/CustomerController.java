@@ -4,6 +4,7 @@ import com.araliya.pos.araliyapos.dto.CustomerDTO;
 import com.araliya.pos.araliyapos.dto.request.CustomerSaveRequestDTO;
 import com.araliya.pos.araliyapos.dto.request.CustomerUpdateRequestDTO;
 import com.araliya.pos.araliyapos.service.CustomerService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.stylesheets.LinkStyle;
@@ -43,5 +44,14 @@ public class CustomerController {
     public List<CustomerDTO> getAllCustomer(){
         List<CustomerDTO> customerDTOList = customerService.getAllCustomers();
         return customerDTOList;
+    }
+
+    @DeleteMapping(
+            path = {"/delete-by-id"},
+            params = "id"
+    )
+    public String deleteCustomerById(@RequestParam(value = "id") int customerId) throws NotFoundException {
+        boolean isDeleted = customerService.deleteCustomerById(customerId);
+        return null;
     }
 }

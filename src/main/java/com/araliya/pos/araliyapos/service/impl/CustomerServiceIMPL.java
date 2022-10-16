@@ -6,6 +6,7 @@ import com.araliya.pos.araliyapos.dto.request.CustomerUpdateRequestDTO;
 import com.araliya.pos.araliyapos.entity.Customer;
 import com.araliya.pos.araliyapos.repository.CustomerRepo;
 import com.araliya.pos.araliyapos.service.CustomerService;
+import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,5 +102,15 @@ public class CustomerServiceIMPL implements CustomerService {
                 .map(customerList, new TypeToken<List<CustomerDTO>>(){}.getType());
 
         return customerDTOList;
+    }
+
+    @Override
+    public boolean deleteCustomerById(int customerId) throws NotFoundException {
+        if (customerRepo.existsById(customerId)){
+            customerRepo.deleteById(customerId);
+        } else{
+            throw new NotFoundException("This id is not in database");
+        }
+        return true;
     }
 }
